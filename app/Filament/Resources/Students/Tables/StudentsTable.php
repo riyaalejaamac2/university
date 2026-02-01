@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Filament\Resources\Students\Tables;
+
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+
+class StudentsTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->deferLoading()
+            ->columns([
+                TextColumn::make('student_id')
+                    ->searchable(),
+                TextColumn::make('fullname')
+                    ->searchable(),
+                TextColumn::make('gender')
+                    ->searchable(),
+                TextColumn::make('semester')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('department')
+                    ->searchable(),
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('semester_id')
+                    ->numeric()
+                    ->sortable(),
+            ])
+            ->filters([
+                //
+            ])
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+}
